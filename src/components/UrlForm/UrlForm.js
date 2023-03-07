@@ -1,53 +1,58 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
-class UrlForm extends Component {
-  constructor(props) {
-    super();
-    this.props = props;
-    this.state = {
-      title: '',
-      urlToShorten: ''
-    };
+function UrlForm() {
+  const [title, setTitle] = useState('')
+  const [urlToShorten, setUrlToShorten] = useState('')
+  // constructor(props) {
+  //   super();
+  //   this.props = props;
+  //   this.state = {
+  //     title: '',
+  //     urlToShorten: ''
+  //   };
+  // }
+
+  const handleNameChange = e => {
+    setTitle(e.target.value);
   }
 
-  handleNameChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.clearInputs();
+    // Nothing being submitted here yet
+    clearInputs();
   }
 
-  clearInputs = () => {
-    this.setState({title: '', urlToShorten: ''});
+  const clearInputs = () => {
+    // setState({title: '', urlToShorten: ''});
+    setTitle('');
+    setUrlToShorten('');
   }
 
-  render() {
-    return (
-      <form>
-        <input
-          type='text'
-          placeholder='Title...'
-          name='title'
-          value={this.state.title}
-          onChange={e => this.handleNameChange(e)}
-        />
 
-        <input
-          type='text'
-          placeholder='URL to Shorten...'
-          name='title'
-          value={this.state.title}
-          onChange={e => this.handleNameChange(e)}
-        />
+  return (
+    <form>
+      <input
+        type='text'
+        placeholder='Title...'
+        name='title'
+        value={title}
+        onChange={e => handleNameChange(e)}
+      />
 
-        <button onClick={e => this.handleSubmit(e)}>
-          Shorten Please!
-        </button>
-      </form>
-    )
-  }
+      <input
+        type='text'
+        placeholder='URL to Shorten...'
+        name='title'
+        value={title}
+        onChange={e => handleNameChange(e)}
+      />
+
+      <button onClick={e => handleSubmit(e)}>
+        Shorten Please!
+      </button>
+    </form>
+  )
+
 }
 
 export default UrlForm;
