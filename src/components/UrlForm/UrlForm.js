@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 
 function UrlForm() {
   const [title, setTitle] = useState('')

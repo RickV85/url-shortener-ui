@@ -15,9 +15,15 @@ export function App() {
 
   useEffect(() => {
 
+    getUrls()
+    .then(data => {
+      console.log(data.urls)
+      setUrls(data.urls)
+    }).catch(error => {
+      alert(error)
+    })
   }, [])
-  // componentDidMount() {
-  // }
+
 
 
   return (
