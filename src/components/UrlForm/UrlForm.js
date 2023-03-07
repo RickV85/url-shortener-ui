@@ -15,7 +15,10 @@ function UrlForm({ setUrls, urls }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    if (!(title && urlToShorten)) {
+      alert('Please fill out all inputs before submission')
+      return;
+    }
     postNewUrl({'long_url': urlToShorten, 'title': title})
     .then(response => {
       setUrls([...urls, response])
@@ -45,7 +48,7 @@ function UrlForm({ setUrls, urls }) {
       <input
         type='text'
         placeholder='URL to Shorten...'
-        name='title'
+        name='url'
         value={urlToShorten}
         onChange={e => handleUrlChange(e)}
       />
