@@ -6,18 +6,11 @@ import UrlForm from '../UrlForm/UrlForm';
 
 export function App() {
   const [urls, setUrls] = useState([])
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     urls: []
-  //   }
-  // }
 
   useEffect(() => {
-
     getUrls()
     .then(data => {
-      console.log(data.urls)
+      if (!data) return;
       setUrls(data.urls)
     }).catch(error => {
       alert(error)
@@ -30,7 +23,7 @@ export function App() {
     <main className="App">
       <header>
         <h1>URL Shortener</h1>
-        <UrlForm />
+        <UrlForm setUrls={setUrls} urls={urls}/>
       </header>
 
       <UrlContainer urls={urls}/>

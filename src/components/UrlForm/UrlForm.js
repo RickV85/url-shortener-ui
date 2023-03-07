@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
+import { postNewUrl } from '../../apiCalls';
 
-function UrlForm() {
+function UrlForm({ setUrls, urls }) {
   const [title, setTitle] = useState('')
   const [urlToShorten, setUrlToShorten] = useState('')
-  // constructor(props) {
-  //   super();
-  //   this.props = props;
-  //   this.state = {
-  //     title: '',
-  //     urlToShorten: ''
-  //   };
-  // }
 
   const handleNameChange = e => {
     setTitle(e.target.value);
   }
 
+  const handleUrlChange = e => {
+    setUrlToShorten(e.target.value)
+  }
+
   const handleSubmit = e => {
     e.preventDefault();
-    // Nothing being submitted here yet
+
+    postNewUrl({'long_url': urlToShorten, 'title': title})
+    .then(response => {
+      setUrls([...urls, response])
+    }).catch(error => {
+      alert(error)
+    })
+   
     clearInputs();
   }
 
   const clearInputs = () => {
-    // setState({title: '', urlToShorten: ''});
     setTitle('');
     setUrlToShorten('');
   }
@@ -43,8 +46,8 @@ function UrlForm() {
         type='text'
         placeholder='URL to Shorten...'
         name='title'
-        value={title}
-        onChange={e => handleNameChange(e)}
+        value={urlToShorten}
+        onChange={e => handleUrlChange(e)}
       />
 
       <button onClick={e => handleSubmit(e)}>
