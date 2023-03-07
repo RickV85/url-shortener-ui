@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { postNewUrl } from '../../apiCalls';
 
-function UrlForm({ setUrls, urls }) {
+function UrlForm({ setUrls, urls, setError }) {
   const [title, setTitle] = useState('')
   const [urlToShorten, setUrlToShorten] = useState('')
 
@@ -24,7 +24,7 @@ function UrlForm({ setUrls, urls }) {
       console.log(response)
       setUrls([...urls, response])
     }).catch(error => {
-      alert(error)
+      setError(`${error}`)
     })
    
     clearInputs();

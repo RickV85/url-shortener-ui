@@ -9,8 +9,7 @@ describe('App', () => {
               "title": "Awesome photo"
           }
       ]
-  }
-    )
+    })
     cy.visit('http://localhost:3000/')
   })
 
@@ -54,12 +53,21 @@ describe('App', () => {
     cy.get('input[name="url"]').type('https://github.com/RickV85/url-shortener-ui')
     cy.get('button').click()
 
-    cy.wait(200)
+    cy.wait(1000)
 
     cy.get('div[class="url"]').eq(1).should('contain', 'Test post')
     cy.get('div[class="url"]').eq(1).should('contain', 'http://localhost:3001/useshorturl/2')
     cy.get('div[class="url"]').eq(1).should('contain', 'https://github.com/RickV85/url-shortener-ui')
   })
 
-  
+  it('Should not allow a user to enter an empty input and submit the form', () => {
+    cy.get('input[name="title"]').type('Test post')
+    cy.get('button').click()
+
+    cy.on('window:alert', (error) => {
+      expect(error).to.equal(`Please fill out all inputs before submission`)
+    })
+
+    cy.get('div[class="url"]').eq(1).should('not.exist')
+  })
 })
