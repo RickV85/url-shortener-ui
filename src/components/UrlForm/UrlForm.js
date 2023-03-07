@@ -21,8 +21,8 @@ function UrlForm({ setUrls, urls, setError }) {
     }
     postNewUrl({'long_url': urlToShorten, 'title': title})
     .then(response => {
-      console.log(response)
       setUrls([...urls, response])
+      setError('')
     }).catch(error => {
       setError(`${error}`)
     })
