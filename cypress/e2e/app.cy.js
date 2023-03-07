@@ -54,8 +54,12 @@ describe('App', () => {
     cy.get('input[name="url"]').type('https://github.com/RickV85/url-shortener-ui')
     cy.get('button').click()
 
+    cy.wait(200)
+
     cy.get('div[class="url"]').eq(1).should('contain', 'Test post')
     cy.get('div[class="url"]').eq(1).should('contain', 'http://localhost:3001/useshorturl/2')
     cy.get('div[class="url"]').eq(1).should('contain', 'https://github.com/RickV85/url-shortener-ui')
   })
+
+  
 })
