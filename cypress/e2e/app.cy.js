@@ -53,14 +53,29 @@ describe('App', () => {
     cy.get('input[name="url"]').type('https://github.com/RickV85/url-shortener-ui')
     cy.get('button').click()
 
-    cy.wait(1000)
+    cy.wait(1500)
+
+    cy.get('div[class="url"]').eq(0).should('contain', 'Awesome photo')
+    cy.get('div[class="url"]').eq(0).should('contain', 'http://localhost:3001/useshorturl/1')
+    cy.get('div[class="url"]').eq(0).should('contain', 'https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
 
     cy.get('div[class="url"]').eq(1).should('contain', 'Test post')
     cy.get('div[class="url"]').eq(1).should('contain', 'http://localhost:3001/useshorturl/2')
     cy.get('div[class="url"]').eq(1).should('contain', 'https://github.com/RickV85/url-shortener-ui')
   })
 
-  it('Should not allow a user to enter an empty input and submit the form', () => {
+  it('Should not allow a user to enter an empty title input and submit the form', () => {
+    cy.get('input[name="url"]').type('https://github.com/RickV85/url-shortener-ui')
+    cy.get('button').click()
+
+    cy.on('window:alert', (error) => {
+      expect(error).to.equal(`Please fill out all inputs before submission`)
+    })
+
+    cy.get('div[class="url"]').eq(1).should('not.exist')
+  })
+
+  it('Should not allow a user to enter an empty URL input and submit the form', () => {
     cy.get('input[name="title"]').type('Test post')
     cy.get('button').click()
 
